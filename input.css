@@ -1,0 +1,11 @@
+@import "tailwindcss";
+@plugin "@midudev/tailwind-animations";
+@theme {
+    --color-primary: #89f;
+    --color-primary-light: #ceecff;
+    --color-primary-dark: #000;
+}
+
+.s-button {
+    @apply p-2 size-12 sm:size-10 flex items-center justify-center rounded-full hover:scale-110 transition-transform
+}
