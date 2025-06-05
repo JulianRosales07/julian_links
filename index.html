@@ -6,9 +6,30 @@
     <title>Julian Links</title>
     <link rel="stylesheet" href="./assets/output.css">
     <link rel="shortcut icon" href="./assets/programacion.png" type="image/x-icon">
+    
+    
+    <style>
+
+        
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #0ea5e9, #8b5cf6, #ec4899);
+            transform-origin: left;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            z-index: 50;
+        }
+
+    </style>
+
 </head>
 
 <body class="max-w-xl mx-auto min-h-dvh bg-gradient-to-b from-black via-slate-950 to-gray-800">
+    <div class="scroll-indicator" id="scrollIndicator"></div>   
     <header class="text-white">
 
         <img alt="Julian.dev" src="./assets/julian1.png"
@@ -127,8 +148,92 @@
                 </a>
             </div>
         </main>
-
+        <!-- Contact Section -->
+        <section class="text-center py-16 px-4 bg-gradient-to-r from-slate-800/50 to-gray-800/50 rounded-3xl mx-4 mb-8">
+            <h2 class="text-3xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+                ¿Tienes un proyecto en mente?
+            </h2>
+            <p class="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
+                Estoy siempre abierto a nuevas oportunidades y colaboraciones. 
+                ¡Hablemos sobre cómo puedo ayudarte a hacer realidad tu próximo proyecto!
+            </p>
+            <div class="flex gap-4 justify-center flex-wrap">
+                <a href="mailto:julianrosales0703@hotmail.com" 
+                   class="bg-gradient-to-r from-cyan-500 to-purple-500 hover:from-cyan-600 hover:to-purple-600 px-8 py-3 rounded-full font-semibold transition-all duration-300 hover:scale-105 shadow-lg">
+                    Enviar Email
+                </a>
+                <a href="https://wa.me/573186025827" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   class="bg-green-600 hover:bg-green-700 px-8 py-3 rounded-full font-semibold transition-all duration-300 hover:scale-105 shadow-lg">
+                    WhatsApp
+                </a>
+            </div>
+        </section>
     </header>
+
+        <!-- Footer -->
+        <footer class="text-center mt-4 gap-2 text-balance text-white">
+            <p>&copy; 2025 Julian Rosales. Todos los derechos reservados.</p>
+            <p class="text-sm mt-2">Desarrollado con ❤️ y mucho café ☕</p>
+        </footer>
+        
+    <script>
+        // Indicador de desplazamiento
+        window.addEventListener('scroll', () => {
+            const desplazado = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.getElementById('scrollIndicator').style.transform = `scaleX(${desplazado / 100})`;
+        });
+
+        // Desplazamiento suave para enlaces ancla
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Agrega retraso de animaci n de carga a los botones sociales
+        const botonesSociales = document.querySelectorAll('.animate-slide-up-fade');
+        botonesSociales.forEach((boton, index) => {
+            boton.style.animationDelay = `${index * 0.1}s`;
+        });
+
+        // Observador de intersecci n para animaciones
+        const opcionesObservador = {
+            umbral: 0.1,
+            margenRaiz: '0px 0px -100px 0px'
+        };
+
+        const observador = new IntersectionObserver((entradas) => {
+            entradas.forEach(entrada => {
+                if (entrada.isIntersecting) {
+                    entrada.target.style.opacity = '1';
+                    entrada.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, opcionesObservador);
+
+        // Observa las tarjetas de proyectos
+        document.querySelectorAll('.project-card').forEach(tarjeta => {
+            tarjeta.style.opacity = '0';
+            tarjeta.style.transform = 'translateY(30px)';
+            tarjeta.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observador.observe(tarjeta);
+        });
+
+        // Agrega an lisis de clics (reemplaza con tus an lisis)
+        document.querySelectorAll('a[target="_blank"]').forEach(enlace => {
+            enlace.addEventListener('click', (e) => {
+                // console.log('Enlace externo clickeado:', e.target.href);
+                // Agrega tu c digo de an lisis aqu 
+            });
+        });
+
+
+    </script>
 </body>
 
 </html>
