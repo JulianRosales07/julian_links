@@ -1,11 +1,60 @@
 @import "tailwindcss";
 @plugin "@midudev/tailwind-animations";
 @theme {
-    --color-primary: #89f;
-    --color-primary-light: #ceecff;
-    --color-primary-dark: #000;
+  --color-primary: #89f;
+  --color-primary-light: #ceecff;
+  --color-primary-dark: #000;
 }
-
 .s-button {
-    @apply p-2 size-12 sm:size-10 flex items-center justify-center rounded-full hover:scale-110 transition-transform
+  @apply p-2 size-12 sm:size-10 flex items-center justify-center rounded-full hover:scale-110 hover:shadow-2xl hover:shadow-white/20 transition-all duration-300 ease-out border border-white/10 backdrop-blur-sm relative overflow-hidden group;
+}
+.s-button::before {
+  content: "";
+  @apply absolute inset-0 rounded-full opacity-0 bg-gradient-to-r from-white/20 to-transparent transition-opacity duration-300;
+}
+.s-button:hover::before {
+  @apply opacity-100;
+}
+.s-button svg {
+  @apply transition-transform duration-300 group-hover:scale-110 relative z-10;
+} /* Estilos específicos para cada botón social */
+.s-button.instagram {
+  @apply shadow-lg shadow-pink-500/25;
+}
+.s-button.github {
+  @apply bg-gray-900 shadow-lg shadow-gray-900/50;
+}
+.s-button.youtube {
+  @apply bg-red-600 shadow-lg shadow-red-600/50;
+}
+.s-button.linkedin {
+  @apply bg-blue-600 shadow-lg shadow-blue-600/50;
+} /* Botones de contacto mejorados */
+.contact-button {
+  @apply px-8 py-4 rounded-2xl font-semibold text-white transition-all duration-300 ease-out hover:scale-105 hover:shadow-2xl relative overflow-hidden border border-white/10 group;
+}
+.contact-button::before {
+  content: "";
+  @apply absolute inset-0 opacity-0 bg-gradient-to-r from-white/20 to-transparent transition-opacity duration-300;
+}
+.contact-button:hover::before {
+  @apply opacity-100;
+}
+.contact-button.email {
+  @apply bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 hover:from-cyan-400 hover:via-purple-400 hover:to-pink-400 shadow-lg shadow-purple-500/25;
+}
+.contact-button.whatsapp {
+  @apply bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 shadow-lg shadow-green-500/25;
+} /* Animación de pulso sutil para los botones */
+@keyframes subtle-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+.s-button:hover {
+  animation: subtle-pulse 2s infinite;
 }
