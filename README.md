@@ -1,6 +1,6 @@
 
 <div align="center" class="text-center">
-<h1><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">ENLACES JULIANOS</font></font></h1>
+<h1><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">MI PORTAFOLIO</font></font></h1>
 <p><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Mejora tu presencia online, conéctate con el propósito.</font></font></em></p>
 
 <img alt="último compromiso" src="https://img.shields.io/github/last-commit/JulianRosales07/julian_links?style=flat&amp;logo=git&amp;logoColor=white&amp;color=0080ff" class="inline-block mx-1" style="margin: 0px 2px;">
