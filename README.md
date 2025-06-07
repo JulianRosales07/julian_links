@@ -1,6 +1,6 @@
 
 <div align="center" class="text-center">
-<h1 style="color: blue; font-family: Arial; text-align: center;">MI PORTAFOLIO</h1>
+<h1><font style="vertical-align: inherit;"><font style="vertical-align: inherit; color: blue; ">MI PORTAFOLIO</font></font></h1>
 
 <p><em><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Mejora tu presencia online, conéctate con el propósito.</font></font></em></p>
 
