@@ -1,251 +1,270 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Julian Links</title>
-  <link rel="stylesheet" href="./assets/output.css">
-  <link rel="shortcut icon" href="./assets/programacion.png" type="image/x-icon">
-  <style>
-    .scroll-indicator {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: linear-gradient(90deg, #0ea5e9, #8b5cf6, #ec4899);
-      transform-origin: left;
-      transform: scaleX(0);
-      transition: transform 0.3s ease;
-      z-index: 50;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Julian Links</title>
+    <link rel="stylesheet" href="./assets/output.css">
+    <link rel="shortcut icon" href="./assets/programacion.png" type="image/x-icon">
+    <style>
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #0ea5e9, #8b5cf6, #ec4899);
+            transform-origin: left;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            z-index: 50;
+        }
 
-    .text-container {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-family: monospace;
-      font-size: 1.25rem; /* text-xl */
-      color: #38bdf8; /* text-sky-400 */
-      padding: 0.25rem 0.75rem; /* px-3 py-1 */
-      border: 1px solid rgba(0,0,0,0.5); /* border-black/50 */
-      border-radius: 9999px; /* rounded-full */
-      background-color: rgba(0,0,0,0.65); /* bg-black/65 */
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05); /* shadow-sm */
-      cursor: crosshair;
-      position: relative;
-      z-10;
-    }
+        .text-container {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: monospace;
+            font-size: 1.25rem; /* text-xl */
+            color: #38bdf8; /* text-sky-400 */;
+            padding: 0.25rem 0.75rem; /* px-3 py-1 */;
+            border: 1px solid rgba(0,0,0,0.5); /* border-black/50 */;
+            border-radius: 9999px; /* rounded-full */;
+            background-color: rgba(0,0,0,0.65); /* bg-white */;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05); /* shadow-sm */;
+            cursor: crosshair;
+            position: relative;
+            z-index: 2;
+            overflow: hidden; /* Para contener el SVG durante la animación */;
+        }
 
-    .typing-text {
-      overflow: hidden;
-      white-space: nowrap;
-      border-right: 2px solid #38bdf8; /* Cursor de escritura */
-      animation: blink 0.5s step-end infinite;
-    }
+        .typing-text {
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid #38bdf8; /* Cursor estático */;
+        }
 
-    @keyframes typing {
-      from {
-        width: 0;
-      }
-      to {
-        width: 100%;
-      }
-    }
+        .icon {
+            margin-left: 0.25rem; /* ml-1 */;
+            width: 1.25rem; /* w-5 */;
+            height: 1.25rem; /* h-5 */;
+            color: #38bdf8; /* text-sky-400 */;
+            transform: translateX(100px); /* Posición inicial fuera a la derecha */;
+            opacity: 0; /* Invisible al inicio */;
+        }
 
-    @keyframes blink {
-      from, to {
-        border-color: transparent;
-      }
-      50% {
-        border-color: #38bdf8;
-      }
-    }
+        /* Animación de caída y rebote */
+        .drop-bounce {
+            animation: dropBounce 0.8s ease-out forwards;
+        }
 
-    .icon {
-      margin-left: 0.25rem; /* ml-1 */
-      width: 1.25rem; /* w-5 */
-      height: 1.25rem; /* h-5 */
-      color: #38bdf8; /* text-sky-400 */
-    }
-
-  </style>
+        @keyframes dropBounce {
+            0% {
+                transform: translateX(100px) translateY(-20px); /* Comienza arriba y a la derecha */
+                opacity: 0;
+            }
+            50% {
+                transform: translateX(0) translateY(10px); /* Cae con ligero exceso */
+                opacity: 1;
+            }
+            75% {
+                transform: translateX(0) translateY(-5px); /* Rebote hacia arriba */
+            }
+            100% {
+                transform: translateX(0) translateY(0); /* Posición final */
+                opacity: 1;
+            }
+        }
+    </style>
 </head>
 <body class="max-w-xl mx-auto min-h-dvh bg-gradient-to-b from-black via-slate-950 to-gray-800">
-  <div class="scroll-indicator" id="scrollIndicator"></div>
-  <header class="text-white">
-    <img alt="Julian Rosales profile image" src="./assets/julian1.png" class="h-[50vh] object-cover mx-auto mask-radial-at-center mask-radial-from-40% mask-radial-to-80% animate-pulse-fade-in" loading="lazy">
-    <div class="flex flex-col justify-center items-center mb-8 -mt-4">
-  <span class="text-container">
-    <span class="typing-text">julian.dev</span>
-    <svg class="icon" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707a1 1 0 00-1.414-1.414L9 11.172l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-    </svg>
-  </span>
-      <h1 class="text-3xl font-extrabold leading-tight">Julian Rosales</h1>
-    </div>
-    <section class="flex gap-4 justify-center">
-      <a class="bg-gradient-to-tr from-yellow-300 via-pink-600 to-purple-600 s-button instagram animate-slide-up-fade" href="https://www.instagram.com/julian_rosales.09/" target="_blank" aria-label="Instagram" title="Ir a Instagram de JulianRosales07">
-        <svg width="28" height="28" class="text-white">
-          <use xlink:href="./assets/sprite.svg#instagram" />
-        </svg>
-      </a>
-      <a class="s-button github animate-slide-up-fade md:block hidden" href="https://github.com/JulianRosales07" target="_blank" aria-label="GitHub">
-        <svg width="28" height="28" class="text-white">
-          <use xlink:href="./assets/sprite.svg#github" />
-        </svg>
-      </a>
-      <a class="s-button youtube animate-slide-up-fade md:block hidden" href="https://www.youtube.com/@julianrosales6011" target="_blank" aria-label="YouTube">
-        <svg width="28" height="28" class="text-white">
-          <use xlink:href="./assets/sprite.svg#youtube" />
-        </svg>
-      </a>
-      <a class="s-button linkedin animate-slide-up-fade md:block hidden" href="https://www.linkedin.com/in/julian-rosales-1832b5300/" target="_blank" aria-label="LinkedIn">
-        <svg width="28" height="28" class="text-white">
-          <use xlink:href="./assets/sprite.svg#linkedin" />
-        </svg>
-      </a>
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+    <header class="text-white">
+        <img alt="Julian Rosales profile image" src="./assets/julian1.png" class="h-[50vh] object-cover mx-auto mask-radial-at-center mask-radial-from-40% mask-radial-to-80% animate-pulse-fade-in" loading="lazy">
+        <div class="flex flex-col justify-center items-center mb-8 -mt-4">
+            <span class="text-container">
+                <span class="typing-text"></span>
+                <svg class="icon" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707a1 1 0 00-1.414-1.414L9 11.172l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+            </span>
+            <h1 class="text-3xl font-extrabold leading-tight">Julian Rosales</h1>
+        </div>
+        <section class="flex gap-4 justify-center">
+            <a class="bg-gradient-to-tr from-yellow-300 via-pink-600 to-purple-600 s-button instagram animate-slide-up-fade" href="https://www.instagram.com/julian_rosales.09/" target="_blank" aria-label="Instagram" title="Ir a Instagram de JulianRosales07">
+                <svg width="28" height="28" class="text-white">
+                    <use xlink:href="./assets/sprite.svg#instagram" />
+                </svg>
+            </a>
+            <a class="s-button github animate-slide-up-fade md:block hidden" href="https://github.com/JulianRosales07" target="_blank" aria-label="GitHub">
+                <svg width="28" height="28" class="text-white">
+                    <use xlink:href="./assets/sprite.svg#github" />
+                </svg>
+            </a>
+            <a class="s-button youtube animate-slide-up-fade md:block hidden" href="https://www.youtube.com/@julianrosales6011" target="_blank" aria-label="YouTube">
+                <svg width="28" height="28" class="text-white">
+                    <use xlink:href="./assets/sprite.svg#youtube" />
+                </svg>
+            </a>
+            <a class="s-button linkedin animate-slide-up-fade md:block hidden" href="https://www.linkedin.com/in/julian-rosales-1832b5300/" target="_blank" aria-label="LinkedIn">
+                <svg width="28" height="28" class="text-white">
+                    <use xlink:href="./assets/sprite.svg#linkedin" />
+                </svg>
+            </a>
+        </section>
+        <p class="text-center mt-4 gap-2 text-balance animate-slide-up-fade">
+            Hola, soy Julian Rosales, desarrollador web apasionado de la tecnologia, con conocimientos en
+            <div class="flex items-center justify-center gap-2 mt-3">
+                <svg class="h-6 w-6 animate-slide-up-fade" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <use xlink:href="assets/sprite.svg#html"></use>
+                </svg>
+                <svg class="h-6 w-6 animate-slide-up-fade" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <use xlink:href="assets/sprite.svg#css"></use>
+                </svg>
+                <svg class="h-6 w-6 animate-slide-up-fade" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <use href="assets/sprite.svg#typescript"></use>
+                </svg>
+                <svg class="h-6 w-6 animate-slide-up-fade" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <use href="assets/sprite.svg#react"></use>
+                </svg>
+            </div>
+        </p>
+    </header>
+    <main class="pt-4 px-4 pb-16">
+        <div class="grid grid-cols-3 grid-rows-2 gap-2 w-full">
+            <a href="https://climaxclub.vercel.app" class="project-card relative rounded-3xl overflow-hidden bg-gradient-to-br from-cyan-900 via-cyan-700 to-cyan-500 border border-cyan-900 flex flex-col items-start hover:scale-105 hover:contrast-125 transition group col-span-2 p-7 min-h-[180px]" target="_blank">
+                <span class="absolute bottom-2 left-4 font-bold text-2xl group-hover:-translate-y-1 transition-transform">ClimaxClub</span>
+                <svg class="absolute -right-4 -bottom-4 -rotate-6 size-28 group-hover:-rotate-12 group-hover:scale-125 transition-transform" width="100" height="100">
+                    <use xlink:href="./assets/sprite.svg#react" />
+                </svg>
+                <span class="absolute top-2 left-4 text-xs border rounded-xl px-1 py-0.5 text-white">Aplicativo web</span>
+            </a>
+            <a href="https://cybera-2tkg.vercel.app/" class="project-card relative rounded-3xl overflow-hidden bg-gradient-to-br from-cyan-900 via-cyan-700 to-cyan-500 border border-cyan-900 flex flex-col items-start hover:scale-105 hover:contrast-125 transition group col-span-1 p-7 min-h-[180px]" target="_blank">
+                <span class="absolute bottom-2 left-4 font-bold text-2xl group-hover:-translate-y-1 transition-transform">CYBERA</span>
+                <svg class="absolute -right-4 -bottom-4 -rotate-6 size-28 group-hover:-rotate-12 group-hover:scale-125 transition-transform" width="100" height="100">
+                    <use xlink:href="./assets/sprite.svg#react" />
+                </svg>
+                <span class="absolute top-2 left-4 text-xs border rounded-xl px-1 py-0.5 text-white">Plataforma web tecnológica</span>
+            </a>
+            <a href="https://parrilleros.vercel.app/" class="project-card relative rounded-3xl overflow-hidden bg-gradient-to-br from-cyan-900 via-cyan-700 to-cyan-500 border border-cyan-900 flex flex-col items-start hover:scale-105 hover:contrast-125 transition group col-span-2 p-7 min-h-[180px]" target="_blank">
+                <span class="absolute bottom-2 left-4 font-bold text-2xl group-hover:-translate-y-1 transition-transform">PARRILLEROS</span>
+                <svg class="absolute -right-4 -bottom-4 -rotate-6 size-28 group-hover:-rotate-12 group-hover:scale-125 transition-transform" width="100" height="100">
+                    <use xlink:href="./assets/sprite.svg#react" />
+                </svg>
+                <span class="absolute top-2 left-4 text-xs border rounded-xl px-1 py-0.5 text-white">Aplicativo web</span>
+            </a>
+        </div>
+    </main>
+    <section class="text-center py-16 px-4 bg-gradient-to-r from-slate-800/50 to-gray-800/50 rounded-3xl mx-4 mb-8">
+        <h2 class="text-3xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
+            ¿Tienes un proyecto en mente?
+        </h2>
+        <p class="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
+            Estoy siempre abierto a nuevas oportunidades y colaboraciones. ¡Hablemos sobre cómo puedo ayudarte a hacer realidad tu próximo proyecto!
+        </p>
+        <div class="flex gap-6 justify-center flex-wrap">
+            <a href="mailto:julianrosales0703@hotmail.com?subject=Proyecto%20Web&body=Hola%20Julián,%20me%20gustaría%20hablar%20contigo%20sobre%20un%20proyecto."
+               class="contact-button email flex items-center gap-3 text-white">
+                <img src="./assets/panorama.png" alt="Email Icon" width="20" height="20">
+                Enviar Email
+            </a>
+            <a href="https://wa.me/573186025827?text=Hola%20Julián,%20me%20interesa%20hablar%20contigo%20sobre%20un%20proyecto."
+               target="_blank" 
+               rel="noopener noreferrer"
+               class="contact-button whatsapp flex items-center gap-3 text-white">
+                <img src="./assets/whatsapp.png" alt="WhatsApp Icon" width="20" height="20">
+                WhatsApp
+            </a>
+        </div>
     </section>
-    <p class="text-center mt-4 gap-2 text-balance animate-slide-up-fade">
-      Hola, soy Julian Rosales, desarrollador web apasionado de la tecnologia, con conocimientos en
-      <div class="flex items-center justify-center gap-2 mt-3">
-        <svg class="h-6 w-6 animate-slide-up-fade" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-          <use xlink:href="assets/sprite.svg#html"></use>
-        </svg>
-        <svg class="h-6 w-6 animate-slide-up-fade" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-          <use xlink:href="assets/sprite.svg#css"></use>
-        </svg>
-        <svg class="h-6 w-6 animate-slide-up-fade" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-          <use href="assets/sprite.svg#typescript"></use>
-        </svg>
-        <svg class="h-6 w-6 animate-slide-up-fade" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-          <use href="assets/sprite.svg#react"></use>
-        </svg>
-      </div>
-    </p>
-  </header>
-  <main class="pt-4 px-4 pb-16">
-    <div class="grid grid-cols-3 grid-rows-2 gap-2 w-full">
-      <a href="https://climaxclub.vercel.app" class="project-card relative rounded-3xl overflow-hidden bg-gradient-to-br from-cyan-900 via-cyan-700 to-cyan-500 border border-cyan-900 flex flex-col items-start hover:scale-105 hover:contrast-125 transition group col-span-2 p-7 min-h-[180px]" target="_blank">
-        <span class="absolute bottom-2 left-4 font-bold text-2xl group-hover:-translate-y-1 transition-transform">ClimaxClub</span>
-        <svg class="absolute -right-4 -bottom-4 -rotate-6 size-28 group-hover:-rotate-12 group-hover:scale-125 transition-transform" width="100" height="100">
-          <use xlink:href="./assets/sprite.svg#react" />
-        </svg>
-        <span class="absolute top-2 left-4 text-xs border rounded-xl px-1 py-0.5 text-white">Aplicativo web</span>
-      </a>
-      <a href="https://cybera-2tkg.vercel.app/" class="project-card relative rounded-3xl overflow-hidden bg-gradient-to-br from-cyan-900 via-cyan-700 to-cyan-500 border border-cyan-900 flex flex-col items-start hover:scale-105 hover:contrast-125 transition group col-span-1 p-7 min-h-[180px]" target="_blank">
-        <span class="absolute bottom-2 left-4 font-bold text-2xl group-hover:-translate-y-1 transition-transform">CYBERA</span>
-        <svg class="absolute -right-4 -bottom-4 -rotate-6 size-28 group-hover:-rotate-12 group-hover:scale-125 transition-transform" width="100" height="100">
-          <use xlink:href="./assets/sprite.svg#react" />
-        </svg>
-        <span class="absolute top-2 left-4 text-xs border rounded-xl px-1 py-0.5 text-white">Plataforma web tecnológica</span>
-      </a>
-      <a href="https://parrilleros.vercel.app/" class="project-card relative rounded-3xl overflow-hidden bg-gradient-to-br from-cyan-900 via-cyan-700 to-cyan-500 border border-cyan-900 flex flex-col items-start hover:scale-105 hover:contrast-125 transition group col-span-2 p-7 min-h-[180px]" target="_blank">
-        <span class="absolute bottom-2 left-4 font-bold text-2xl group-hover:-translate-y-1 transition-transform">PARRILLEROS</span>
-        <svg class="absolute -right-4 -bottom-4 -rotate-6 size-28 group-hover:-rotate-12 group-hover:scale-125 transition-transform" width="100" height="100">
-          <use xlink:href="./assets/sprite.svg#react" />
-        </svg>
-        <span class="absolute top-2 left-4 text-xs border rounded-xl px-1 py-0.5 text-white">Aplicativo web</span>
-      </a>
-    </div>
-  </main>
-  <section class="text-center py-16 px-4 bg-gradient-to-r from-slate-800/50 to-gray-800/50 rounded-3xl mx-4 mb-8">
-    <h2 class="text-3xl font-bold mb-6 bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent">
-      ¿Tienes un proyecto en mente?
-    </h2>
-    <p class="text-gray-300 text-lg mb-8 max-w-2xl mx-auto">
-      Estoy siempre abierto a nuevas oportunidades y colaboraciones. ¡Hablemos sobre cómo puedo ayudarte a hacer realidad tu próximo proyecto!
-    </p>
-    
-    <div class="flex gap-6 justify-center flex-wrap">
-      <!-- Botón Email con mensaje predefinido -->
-      <a href="mailto:julianrosales0703@hotmail.com?subject=Proyecto%20Web&body=Hola%20Julián,%20me%20gustaría%20hablar%20contigo%20sobre%20un%20proyecto."
-         class="contact-button email flex items-center gap-3 text-white">
-        <img src="./assets/panorama.png" alt="Email Icon" width="20" height="20">
-        Enviar Email
-      </a>
-  
-      <!-- Botón WhatsApp con mensaje predefinido -->
-      <a href="https://wa.me/573186025827?text=Hola%20Julián,%20me%20interesa%20hablar%20contigo%20sobre%20un%20proyecto."
-         target="_blank" 
-         rel="noopener noreferrer"
-         class="contact-button whatsapp flex items-center gap-3 text-white">
-        <img src="./assets/whatsapp.png" alt="WhatsApp Icon" width="20" height="20">
-        WhatsApp
-      </a>
-    </div>
-  </section>
-  <footer class="text-center mt-4 gap-2 text-balance text-white">
-    <p>© 2025 Julian Rosales. Todos los derechos reservados.</p>
-    <p class="text-sm mt-2">Desarrollado con ❤️ y mucho café ☕</p>
-  </footer>
-  <script>
-    // Indicador de desplazamiento
-    window.addEventListener('scroll', () => {
-      const desplazado = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-      document.getElementById('scrollIndicator').style.transform = `scaleX(${desplazado / 100})`;
-    });
+    <footer class="text-center mt-4 gap-2 text-balance text-white">
+        <p>© 2025 Julian Rosales. Todos los derechos reservados.</p>
+        <p class="text-sm mt-2">Desarrollado con ❤️ y mucho café ☕</p>
+    </footer>
+    <script>
+        // Indicador de desplazamiento
+        window.addEventListener('scroll', () => {
+            const desplazado = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+            document.getElementById('scrollIndicator').style.transform = `scaleX(${desplazado / 100})`;
+        });
 
-    // Agrega retraso de animación de carga a los botones sociales
-    const botonesSociales = document.querySelectorAll('.animate-slide-up-fade');
-    botonesSociales.forEach((boton, index) => {
-      boton.style.animationDelay = `${index * 0.1}s`;
-    });
+        // Agrega retraso de animación de carga a los botones sociales
+        const botonesSociales = document.querySelectorAll('.animate-slide-up-fade');
+        botonesSociales.forEach((boton, index) => {
+            boton.style.animationDelay = `${index * 0.1}s`;
+        });
 
-    // Observador de intersección para animaciones
-    const opcionesObservador = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -100px 0px'
-    };
-    const observador = new IntersectionObserver((entradas) => {
-      entradas.forEach(entrada => {
-        if (entrada.isIntersecting) {
-          entrada.target.style.opacity = '1';
-          entrada.target.style.transform = 'translateY(0)';
+        // Observador de intersección para animaciones
+        const opcionesObservador = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+        const observador = new IntersectionObserver((entradas) => {
+            entradas.forEach(entrada => {
+                if (entrada.isIntersecting) {
+                    entrada.target.style.opacity = '1';
+                    entrada.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, opcionesObservador);
+
+        // Observa las tarjetas de proyectos
+        document.querySelectorAll('.project-card').forEach(tarjeta => {
+            tarjeta.style.opacity = '0';
+            tarjeta.style.transform = 'translateY(30px)';
+            tarjeta.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observador.observe(tarjeta);
+        });
+
+        // Agrega análisis de clics
+        document.querySelectorAll('a[target="_blank"]').forEach(enlace => {
+            enlace.addEventListener('click', (e) => {
+                // console.log('Enlace externo clickeado:', e.target.href);
+            });
+        });
+
+        // Animación del texto y SVG
+        const textElement = document.querySelector('.typing-text');
+        const iconElement = document.querySelector('.icon');
+        const finalText = 'julian.dev';
+        let textIndex = 0;
+        let isTextTyping = true;
+
+        function typeText() {
+            if (isTextTyping) {
+                if (textIndex < finalText.length) {
+                    textElement.textContent = finalText.slice(0, textIndex + 1);
+                    textIndex++;
+                    setTimeout(typeText, 500); // Velocidad: 150ms por carácter
+                } else {
+                    isTextTyping = false;
+                    setTimeout(() => {
+                        animateIcon(); // Inicia la animación del SVG tras la pausa
+                    }, 1000); // Pausa de 1 segundo al completar
+                }
+            } else {
+                textIndex = 0;
+                textElement.textContent = '';
+                iconElement.style.transform = 'translateX(100px)'; // Reinicia SVG
+                iconElement.style.opacity = '0';
+                iconElement.classList.remove('drop-bounce');
+                isTextTyping = true;
+                setTimeout(typeText, 200); // Pausa antes de reiniciar: 200ms
+            }
         }
-      });
-    }, opcionesObservador);
 
-    // Observa las tarjetas de proyectos
-    document.querySelectorAll('.project-card').forEach(tarjeta => {
-      tarjeta.style.opacity = '0';
-      tarjeta.style.transform = 'translateY(30px)';
-      tarjeta.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-      observador.observe(tarjeta);
-    });
-
-    // Agrega análisis de clics (reemplaza con tus análisis)
-    document.querySelectorAll('a[target="_blank"]').forEach(enlace => {
-      enlace.addEventListener('click', (e) => {
-        // console.log('Enlace externo clickeado:', e.target.href);
-        // Agrega tu código de análisis aquí
-      });
-    });
-    const textElement = document.querySelector('.typing-text');
-    const text = textElement.textContent;
-    let index = 0;
-    let isTyping = true;
-
-    function type() {
-      if (isTyping) {
-        if (index < text.length) {
-          textElement.textContent = text.slice(0, index + 1);
-          index++;
-          setTimeout(type, 300); // Velocidad más lenta: 300ms por carácter
-        } else {
-          isTyping = false;
-          setTimeout(type, 1500); // Pausa más larga al completar: 1.5 segundos
+        function animateIcon() {
+            iconElement.style.transform = ''; // Resetea transform para la animación
+            iconElement.style.opacity = '1'; // Asegura visibilidad inicial
+            iconElement.classList.add('drop-bounce'); // Activa animación
+            setTimeout(() => {
+                // No reiniciamos aquí para que el SVG permanezca hasta el próximo ciclo
+                typeText(); // Continúa con el ciclo del texto tras la animación del SVG
+            }, 3000); // Duración de la animación del SVG
         }
-      } else {
-        index = 0;
-        textElement.textContent = '';
-        isTyping = true;
-        setTimeout(type, 300); // Pausa antes de reiniciar: 300ms
-      }
-    }
 
-    // Inicia la animación
-    type();
-  </script>
+        // Inicia la animación
+        typeText();
+    </script>
 </body>
 </html>
