@@ -19,6 +19,56 @@
       transition: transform 0.3s ease;
       z-index: 50;
     }
+
+    .text-container {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-family: monospace;
+      font-size: 1.25rem; /* text-xl */
+      color: #38bdf8; /* text-sky-400 */
+      padding: 0.25rem 0.75rem; /* px-3 py-1 */
+      border: 1px solid rgba(0,0,0,0.5); /* border-black/50 */
+      border-radius: 9999px; /* rounded-full */
+      background-color: rgba(0,0,0,0.65); /* bg-black/65 */
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05); /* shadow-sm */
+      cursor: crosshair;
+      position: relative;
+      z-10;
+    }
+
+    .typing-text {
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid #38bdf8; /* Cursor de escritura */
+      animation: blink 0.5s step-end infinite;
+    }
+
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+
+    @keyframes blink {
+      from, to {
+        border-color: transparent;
+      }
+      50% {
+        border-color: #38bdf8;
+      }
+    }
+
+    .icon {
+      margin-left: 0.25rem; /* ml-1 */
+      width: 1.25rem; /* w-5 */
+      height: 1.25rem; /* h-5 */
+      color: #38bdf8; /* text-sky-400 */
+    }
+
   </style>
 </head>
 <body class="max-w-xl mx-auto min-h-dvh bg-gradient-to-b from-black via-slate-950 to-gray-800">
@@ -26,12 +76,12 @@
   <header class="text-white">
     <img alt="Julian Rosales profile image" src="./assets/julian1.png" class="h-[50vh] object-cover mx-auto mask-radial-at-center mask-radial-from-40% mask-radial-to-80% animate-pulse-fade-in" loading="lazy">
     <div class="flex flex-col justify-center items-center mb-8 -mt-4">
-      <span class="text-sky-400 text-xl font-mono px-3 py-1 border border-black/50 rounded-full flex items-center justify-center shadow-sm bg-black/65 cursor-crosshair z-10">
-        julian.dev
-        <svg class="ml-1 w-5 h-5 text-sky-400 inline" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
-          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707a1 1 0 00-1.414-1.414L9 11.172l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-        </svg>
-      </span>
+  <span class="text-container">
+    <span class="typing-text">julian.dev</span>
+    <svg class="icon" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+      <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707a1 1 0 00-1.414-1.414L9 11.172l-1.293-1.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+    </svg>
+  </span>
       <h1 class="text-3xl font-extrabold leading-tight">Julian Rosales</h1>
     </div>
     <section class="flex gap-4 justify-center">
@@ -56,19 +106,19 @@
         </svg>
       </a>
     </section>
-    <p class="text-center mt-4 gap-2 text-balance">
+    <p class="text-center mt-4 gap-2 text-balance animate-slide-up-fade">
       Hola, soy Julian Rosales, desarrollador web apasionado de la tecnologia, con conocimientos en
       <div class="flex items-center justify-center gap-2 mt-3">
-        <svg class="h-6 w-6" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <svg class="h-6 w-6 animate-slide-up-fade" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
           <use xlink:href="assets/sprite.svg#html"></use>
         </svg>
-        <svg class="h-6 w-6" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <svg class="h-6 w-6 animate-slide-up-fade" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
           <use xlink:href="assets/sprite.svg#css"></use>
         </svg>
-        <svg class="h-6 w-6" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <svg class="h-6 w-6 animate-slide-up-fade" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
           <use href="assets/sprite.svg#typescript"></use>
         </svg>
-        <svg class="h-6 w-6" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <svg class="h-6 w-6 animate-slide-up-fade" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
           <use href="assets/sprite.svg#react"></use>
         </svg>
       </div>
@@ -171,6 +221,31 @@
         // Agrega tu código de análisis aquí
       });
     });
+    const textElement = document.querySelector('.typing-text');
+    const text = textElement.textContent;
+    let index = 0;
+    let isTyping = true;
+
+    function type() {
+      if (isTyping) {
+        if (index < text.length) {
+          textElement.textContent = text.slice(0, index + 1);
+          index++;
+          setTimeout(type, 300); // Velocidad más lenta: 300ms por carácter
+        } else {
+          isTyping = false;
+          setTimeout(type, 1500); // Pausa más larga al completar: 1.5 segundos
+        }
+      } else {
+        index = 0;
+        textElement.textContent = '';
+        isTyping = true;
+        setTimeout(type, 300); // Pausa antes de reiniciar: 300ms
+      }
+    }
+
+    // Inicia la animación
+    type();
   </script>
 </body>
 </html>
